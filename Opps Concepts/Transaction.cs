@@ -18,5 +18,6 @@ namespace Oops_Concepts.Opps_Concepts
             this.Date = date;
             this.Notes = note;
         }
+
     }
 }
