@@ -8,8 +8,9 @@ namespace Oops_Concepts.Opps_Concepts
 {
    public class GiftCardAccount:BankAccount
     {
-        private decimal _monthlyDeposit = 0m;
+        public decimal _monthlyDeposit { get; set; }
 
-        public GiftCardAccount(string name, decimal initialBalance, decimal monthlyDeposit = 0) :base(name, initialBalance) => _monthlyDeposit = monthlyDeposit;
+
+        
     }
 }
