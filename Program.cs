@@ -301,27 +301,50 @@ namespace Oops_Concepts
             //}
 
 
-            var groupByCompoundKey =
-            from student in students
-            group student by new
-            {
-              FirstLetter = student.LastName[0],
-                 IsScoreOver85 = student.ExamScores[0] > 85
-            } into studentGroup
-            orderby studentGroup.Key.FirstLetter
-            select studentGroup;
+            //var groupByCompoundKey =
+            //from student in students
+            //group student by new
+            //{
+            //  FirstLetter = student.LastName[0],
+            //     IsScoreOver85 = student.ExamScores[0] > 85
+            //} into studentGroup
+            //orderby studentGroup.Key.FirstLetter
+            //select studentGroup;
 
-            foreach (var scoreGroup in groupByCompoundKey)
+            //foreach (var scoreGroup in groupByCompoundKey)
+            //{
+            //    string s = scoreGroup.Key.IsScoreOver85 == true ? "more than 85" : "less than 85";
+            //    Console.WriteLine($"Name starts with {scoreGroup.Key.FirstLetter} who scored {s}");
+            //    foreach (var item in scoreGroup)
+            //    {
+            //        Console.WriteLine($"\t{item.FirstName} {item.LastName}");
+            //    }
+            //}
+
+
+            var nestedGroupsQuery =
+            from student in students
+            group student by student.Year into newGroup1
+            from newGroup2 in (
+            from student in newGroup1
+            group student by student.LastName
+            )
+            group newGroup2 by newGroup1.Key;
+
+            foreach (var outerGroup in nestedGroupsQuery)
             {
-                string s = scoreGroup.Key.IsScoreOver85 == true ? "more than 85" : "less than 85";
-                Console.WriteLine($"Name starts with {scoreGroup.Key.FirstLetter} who scored {s}");
-                foreach (var item in scoreGroup)
+                Console.WriteLine($"DataClass.Student Level = {outerGroup.Key}");
+                foreach (var innerGroup in outerGroup)
                 {
-                    Console.WriteLine($"\t{item.FirstName} {item.LastName}");
+                    Console.WriteLine($"\tNames that begin with: {innerGroup.Key}");
+                    foreach (var innerGroupElement in innerGroup)
+                    {
+                        Console.WriteLine($"\t\t{innerGroupElement.LastName} {innerGroupElement.FirstName}");
+                    }
                 }
             }
 
-           
+
 
 
 
