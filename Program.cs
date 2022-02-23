@@ -369,25 +369,58 @@ namespace Oops_Concepts
 
 
 
-            
-            var queryGroupMax1 =
-             students
-            .GroupBy(student => student.Year)
-            .Select(studentGroup => new
-            {
-            Level = studentGroup.Key,
-            HighestScore = studentGroup.Select(student2 => student2.ExamScores.Average()).Max()
-            });
 
-            int count1 = queryGroupMax1.Count();
-            Console.WriteLine($"Number of groups = {count1}");
+            //var queryGroupMax1 =
+            // students
+            //.GroupBy(student => student.Year)
+            //.Select(studentGroup => new
+            //{
+            //Level = studentGroup.Key,
+            //HighestScore = studentGroup.Select(student2 => student2.ExamScores.Average()).Max()
+            //});
 
-            foreach (var item in queryGroupMax1)
+            //int count1 = queryGroupMax1.Count();
+            //Console.WriteLine($"Number of groups = {count1}");
+
+            //foreach (var item in queryGroupMax1)
+            //{
+            //    Console.WriteLine($"  {item.Level} Highest Score={item.HighestScore}");
+            //}
+
+
+            void FilterByYearType(bool oddYear)
             {
-                Console.WriteLine($"  {item.Level} Highest Score={item.HighestScore}");
+                IEnumerable<Student> studentQuery;
+                if (oddYear)
+                {
+                    studentQuery =
+                        from student in students
+                        where student.Year == GradeLevel.FirstYear || student.Year == GradeLevel.ThirdYear
+                        select student;
+                }
+                else
+                {
+                    studentQuery =
+                        from student in students
+                        where student.Year == GradeLevel.SecondYear || student.Year == GradeLevel.FourthYear
+                        select student;
+                }
+
+                string descr = oddYear ? "odd" : "even";
+                Console.WriteLine($"The following students are at an {descr} year level:");
+                foreach (Student name in studentQuery)
+                {
+                    Console.WriteLine($"{name.LastName}: {name.ID}");
+                }
             }
 
+            FilterByYearType(true);
 
+           
+
+            FilterByYearType(false);
+
+          
 
 
 
