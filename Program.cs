@@ -728,52 +728,108 @@ namespace Oops_Concepts
             //}
 
 
-            // Order the results of a join clause
+            //// Order the results of a join clause
+            //List<Category> categories = new()
+            //{
+            //    new(Name: "Beverages", ID: 001),
+            //    new("Condiments", 002),
+            //    new("Vegetables", 003),
+            //    new("Grains", 004),
+            //    new("Fruit", 005)
+            //};
+
+            //List<Product> products = new()
+            //{
+            //    new(Name: "Cola", CategoryID: 001),
+            //    new("Tea", 001),
+            //    new("Mustard", 002),
+            //    new("Pickles", 002),
+            //    new("Carrots", 003),
+            //    new("Bok Choy", 003),
+            //    new("Peaches", 005),
+            //    new("Melons", 005),
+            //};
+
+            //var groupJoinQuery2 =
+            //    from category in categories
+            //    join prod in products on category.ID equals prod.CategoryID into prodGroup
+            //    orderby category.Name
+            //    select new
+            //    {
+            //        Category = category.Name,
+            //        Products =
+            //            from prod2 in prodGroup
+            //            orderby prod2.Name
+            //            select prod2
+            //    };
+
+            //foreach (var productGroup in groupJoinQuery2)
+            //{
+            //    Console.WriteLine(productGroup.Category);
+            //    foreach (var prodItem in productGroup.Products)
+            //    {
+            //        Console.WriteLine($"  {prodItem.Name,-10} {prodItem.CategoryID}");
+            //    }
+            //}
+
+
+            ////Cross-join
             List<Category> categories = new()
             {
                 new(Name: "Beverages", ID: 001),
                 new("Condiments", 002),
-                new("Vegetables", 003),
-                new("Grains", 004),
-                new("Fruit", 005)
+                new("Vegetables", 003)
             };
 
             List<Product> products = new()
             {
-                new(Name: "Cola", CategoryID: 001),
-                new("Tea", 001),
+                new(Name: "Tea", CategoryID: 001),
                 new("Mustard", 002),
                 new("Pickles", 002),
                 new("Carrots", 003),
                 new("Bok Choy", 003),
                 new("Peaches", 005),
                 new("Melons", 005),
+                new("Ice Cream", 007),
+                new("Mackerel", 012)
             };
 
-            var groupJoinQuery2 =
-                from category in categories
-                join prod in products on category.ID equals prod.CategoryID into prodGroup
-                orderby category.Name
-                select new
-                {
-                    Category = category.Name,
-                    Products =
-                        from prod2 in prodGroup
-                        orderby prod2.Name
-                        select prod2
-                };
+            //var crossJoinQuery =
+            //    from c in categories
+            //    from p in products
+            //    select new
+            //    {
+            //        c.ID,
+            //        p.Name
+            //    };
 
-            foreach (var productGroup in groupJoinQuery2)
+            //Console.WriteLine("Cross Join Query:");
+            //foreach (var v in crossJoinQuery)
+            //{
+            //    Console.WriteLine($"{v.ID,-5}{v.Name}");
+            //}
+
+
+            //Non-equijoin  
+            var nonEquijoinQuery =
+            from p in products
+            let catIds =
+            from c in categories
+            select c.ID
+            where catIds.Contains(p.CategoryID) == true
+            select new
             {
-                Console.WriteLine(productGroup.Category);
-                foreach (var prodItem in productGroup.Products)
-                {
-                    Console.WriteLine($"  {prodItem.Name,-10} {prodItem.CategoryID}");
-                }
+            Product = p.Name,
+            p.CategoryID
+            };
+
+            Console.WriteLine("Non-equijoin query:");
+            foreach (var v in nonEquijoinQuery)
+            {
+                Console.WriteLine($"{v.CategoryID,-5}{v.Product}");
             }
 
-          
-
+            
 
         }
     }
