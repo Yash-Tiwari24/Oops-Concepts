@@ -322,30 +322,70 @@ namespace Oops_Concepts
             //}
 
 
-            var nestedGroupsQuery =
-            from student in students
-            group student by student.Year into newGroup1
-            from newGroup2 in (
-            from student in newGroup1
-            group student by student.LastName
-            )
-            group newGroup2 by newGroup1.Key;
+            //var nestedGroupsQuery =
+            //from student in students
+            //group student by student.Year into newGroup1
+            //from newGroup2 in (
+            //from student in newGroup1
+            //group student by student.LastName
+            //)
+            //group newGroup2 by newGroup1.Key;
 
-            foreach (var outerGroup in nestedGroupsQuery)
+            //foreach (var outerGroup in nestedGroupsQuery)
+            //{
+            //    Console.WriteLine($"DataClass.Student Level = {outerGroup.Key}");
+            //    foreach (var innerGroup in outerGroup)
+            //    {
+            //        Console.WriteLine($"\tNames that begin with: {innerGroup.Key}");
+            //        foreach (var innerGroupElement in innerGroup)
+            //        {
+            //            Console.WriteLine($"\t\t{innerGroupElement.LastName} {innerGroupElement.FirstName}");
+            //        }
+            //    }
+            //}
+
+
+
+            //var queryGroupMax =
+            //from student in students
+            //group student by student.Year into studentGroup
+            //select new
+            //{
+            //Level = studentGroup.Key,
+            //HighestScore = (
+            //from student2 in studentGroup
+            //select student2.ExamScores.Average()
+            //).Max()
+            //};
+
+            //int count = queryGroupMax.Count();
+            //Console.WriteLine($"Number of groups = {count}");
+
+            //foreach (var item in queryGroupMax)
+            //{
+            //    Console.WriteLine($"  {item.Level} Highest Score={item.HighestScore}");
+            //}
+
+
+
+
+            
+            var queryGroupMax1 =
+             students
+            .GroupBy(student => student.Year)
+            .Select(studentGroup => new
             {
-                Console.WriteLine($"DataClass.Student Level = {outerGroup.Key}");
-                foreach (var innerGroup in outerGroup)
-                {
-                    Console.WriteLine($"\tNames that begin with: {innerGroup.Key}");
-                    foreach (var innerGroupElement in innerGroup)
-                    {
-                        Console.WriteLine($"\t\t{innerGroupElement.LastName} {innerGroupElement.FirstName}");
-                    }
-                }
+            Level = studentGroup.Key,
+            HighestScore = studentGroup.Select(student2 => student2.ExamScores.Average()).Max()
+            });
+
+            int count1 = queryGroupMax1.Count();
+            Console.WriteLine($"Number of groups = {count1}");
+
+            foreach (var item in queryGroupMax1)
+            {
+                Console.WriteLine($"  {item.Level} Highest Score={item.HighestScore}");
             }
-
-
-
 
 
 
