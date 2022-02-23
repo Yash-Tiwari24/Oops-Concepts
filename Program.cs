@@ -694,40 +694,86 @@ namespace Oops_Concepts
             //Console.WriteLine(ownersAndPets);
 
 
-            //Example Perform left outer joins
+            ////Example Perform left outer joins
 
-            Person magnus = new(FirstName: "Magnus", LastName: "Hedlund");
-            Person terry = new("Terry", "Adams");
-            Person charlotte = new("Charlotte", "Weiss");
-            Person arlene = new("Arlene", "Huff");
+            //Person magnus = new(FirstName: "Magnus", LastName: "Hedlund");
+            //Person terry = new("Terry", "Adams");
+            //Person charlotte = new("Charlotte", "Weiss");
+            //Person arlene = new("Arlene", "Huff");
 
-            List<Person> people = new() { magnus, terry, charlotte, arlene };
+            //List<Person> people = new() { magnus, terry, charlotte, arlene };
 
-            List<Pet> pets = new()
+            //List<Pet> pets = new()
+            //{
+            //    new(Name: "Barley", Owner: terry),
+            //    new("Boots", terry),
+            //    new("Whiskers", charlotte),
+            //    new("Blue Moon", terry),
+            //    new("Daisy", magnus),
+            //};
+
+            //var query =
+            //    from person in people
+            //    join pet in pets on person equals pet.Owner into gj
+            //    from subpet in gj.DefaultIfEmpty()
+            //    select new
+            //    {
+            //        person.FirstName,
+            //        PetName = subpet?.Name ?? string.Empty
+            //    };
+
+            //foreach (var v in query)
+            //{
+            //    Console.WriteLine($"{v.FirstName + ":",-15}{v.PetName}");
+            //}
+
+
+            // Order the results of a join clause
+            List<Category> categories = new()
             {
-                new(Name: "Barley", Owner: terry),
-                new("Boots", terry),
-                new("Whiskers", charlotte),
-                new("Blue Moon", terry),
-                new("Daisy", magnus),
+                new(Name: "Beverages", ID: 001),
+                new("Condiments", 002),
+                new("Vegetables", 003),
+                new("Grains", 004),
+                new("Fruit", 005)
             };
 
-            var query =
-                from person in people
-                join pet in pets on person equals pet.Owner into gj
-                from subpet in gj.DefaultIfEmpty()
+            List<Product> products = new()
+            {
+                new(Name: "Cola", CategoryID: 001),
+                new("Tea", 001),
+                new("Mustard", 002),
+                new("Pickles", 002),
+                new("Carrots", 003),
+                new("Bok Choy", 003),
+                new("Peaches", 005),
+                new("Melons", 005),
+            };
+
+            var groupJoinQuery2 =
+                from category in categories
+                join prod in products on category.ID equals prod.CategoryID into prodGroup
+                orderby category.Name
                 select new
                 {
-                    person.FirstName,
-                    PetName = subpet?.Name ?? string.Empty
+                    Category = category.Name,
+                    Products =
+                        from prod2 in prodGroup
+                        orderby prod2.Name
+                        select prod2
                 };
 
-            foreach (var v in query)
+            foreach (var productGroup in groupJoinQuery2)
             {
-                Console.WriteLine($"{v.FirstName + ":",-15}{v.PetName}");
+                Console.WriteLine(productGroup.Category);
+                foreach (var prodItem in productGroup.Products)
+                {
+                    Console.WriteLine($"  {prodItem.Name,-10} {prodItem.CategoryID}");
+                }
             }
 
-         
+          
+
 
         }
     }
