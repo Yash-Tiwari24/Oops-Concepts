@@ -662,7 +662,39 @@ namespace Oops_Concepts
 
 
 
-            // using System.Xml.Linq;
+            //// using System.Xml.Linq;
+
+            //Person magnus = new(FirstName: "Magnus", LastName: "Hedlund");
+            //Person terry = new("Terry", "Adams");
+            //Person charlotte = new("Charlotte", "Weiss");
+            //Person arlene = new("Arlene", "Huff");
+
+            //List<Person> people = new() { magnus, terry, charlotte, arlene };
+
+            //List<Pet> pets = new()
+            //{
+            //    new(Name: "Barley", Owner: terry),
+            //    new("Boots", terry),
+            //    new("Whiskers", charlotte),
+            //    new("Blue Moon", terry),
+            //    new("Daisy", magnus),
+            //};
+
+            //XElement ownersAndPets = new("PetOwners",
+            //    from person in people
+            //    join pet in pets on person equals pet.Owner into gj
+            //    select new XElement("Person",
+            //        new XAttribute("FirstName", person.FirstName),
+            //        new XAttribute("LastName", person.LastName),
+            //        from subpet in gj
+            //        select new XElement("Pet", subpet.Name)
+            //    )
+            //);
+
+            //Console.WriteLine(ownersAndPets);
+
+
+            //Example Perform left outer joins
 
             Person magnus = new(FirstName: "Magnus", LastName: "Hedlund");
             Person terry = new("Terry", "Adams");
@@ -680,22 +712,22 @@ namespace Oops_Concepts
                 new("Daisy", magnus),
             };
 
-            XElement ownersAndPets = new("PetOwners",
+            var query =
                 from person in people
                 join pet in pets on person equals pet.Owner into gj
-                select new XElement("Person",
-                    new XAttribute("FirstName", person.FirstName),
-                    new XAttribute("LastName", person.LastName),
-                    from subpet in gj
-                    select new XElement("Pet", subpet.Name)
-                )
-            );
+                from subpet in gj.DefaultIfEmpty()
+                select new
+                {
+                    person.FirstName,
+                    PetName = subpet?.Name ?? string.Empty
+                };
 
-            Console.WriteLine(ownersAndPets);
+            foreach (var v in query)
+            {
+                Console.WriteLine($"{v.FirstName + ":",-15}{v.PetName}");
+            }
 
-           
-
-
+         
 
         }
     }
