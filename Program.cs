@@ -133,91 +133,204 @@ namespace Oops_Concepts
 
             List<Student> students = Student.students;
 
-            void QueryHighScores(int exam, int score)
-            {
-                var highScores =
-                    from student in students
-                    where student.ExamScores[exam] > score
-                    select new
-                    {
-                        Name = student.FirstName,
-                        Score = student.ExamScores[exam]
-                    };
+            //void QueryHighScores(int exam, int score)
+            //{
+            //    var highScores =
+            //        from student in students
+            //        where student.ExamScores[exam] > score
+            //        select new
+            //        {
+            //            Name = student.FirstName,
+            //            Score = student.ExamScores[exam]
+            //        };
 
-                foreach (var item in highScores)
+            //    foreach (var item in highScores)
+            //    {
+            //        Console.WriteLine($"{item.Name,-15}{item.Score}");
+            //    }
+            //}
+
+            //QueryHighScores(2, 90);
+
+
+
+
+            //// QueryMethod1 returns a query as its value.
+            //IEnumerable<string> QueryMethod1(int[] ints) =>
+            //    from i in ints
+            //    where i > 4
+            //    select i.ToString();
+
+            //// QueryMethod2 returns a query as the value of the out parameter returnQ
+            //void QueryMethod2(int[] ints, out IEnumerable<string> returnQ) =>
+            //    returnQ =
+            //        from i in ints
+            //        where i < 4
+            //        select i.ToString();
+
+            //int[] nums = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+            //// QueryMethod1 returns a query as the value of the method.
+            //var myQuery1 = QueryMethod1(nums);
+
+            //// Query myQuery1 is executed in the following foreach loop.
+            //Console.WriteLine("Results of executing myQuery1:");
+
+            //foreach (var s in myQuery1)
+            //{
+            //    Console.WriteLine(s);
+            //}
+
+
+            //Console.WriteLine("\nResults of executing myQuery1 directly:");
+
+            //foreach (var s in QueryMethod1(nums))
+            //{
+            //    Console.WriteLine(s);
+            //}
+
+            //// QueryMethod2 returns a query as the value of its out parameter.
+            //QueryMethod2(nums, out IEnumerable<string> myQuery2);
+
+            //// Execute the returned query.
+            //Console.WriteLine("\nResults of executing myQuery2:");
+            //foreach (var s in myQuery2)
+            //{
+            //    Console.WriteLine(s);
+            //}
+
+
+            //myQuery1 =
+            //    from item in myQuery1
+            //    orderby item descending
+            //    select item;
+
+            //// Execute the modified query.
+            //Console.WriteLine("\nResults of executing modified myQuery1:");
+            //foreach (var s in myQuery1)
+            //{
+            //    Console.WriteLine(s);
+            //}
+
+
+
+            //Package.ToDictionaryEx1();
+            //Package.ToLookupEx1();
+
+
+            //var groupByLastNamesQuery =
+            //from student in students
+            //group student by student.LastName into newGroup
+            //orderby newGroup.Key
+            //select newGroup;
+
+            //foreach (var nameGroup in groupByLastNamesQuery)
+            //{
+            //    Console.WriteLine($"Key: {nameGroup.Key}");
+            //    foreach (var student in nameGroup)
+            //    {
+            //        Console.WriteLine($"\t{student.LastName}, {student.FirstName}");
+            //    }
+            //}
+
+
+            //var groupByFirstLetterQuery =
+            //from student in students
+            //group student by student.LastName[0];
+
+            //foreach (var studentGroup in groupByFirstLetterQuery)
+            //{
+            //    Console.WriteLine($"Key: {studentGroup.Key}");
+            //    Nested foreach is required to access group items.
+            //    foreach (var student in studentGroup)
+            //    {
+            //        Console.WriteLine($"\t{student.LastName}, {student.FirstName}");
+            //    }
+            //}
+
+
+
+
+
+            //int GetPercentile(Student s)
+            //{
+            //    double avg = s.ExamScores.Average();
+            //    return avg > 0 ? (int)avg / 10 : 0;
+            //}
+
+            //var groupByPercentileQuery =
+            //    from student in students
+            //    let percentile = GetPercentile(student)
+            //    group new
+            //    {
+            //        student.FirstName,
+            //        student.LastName
+            //    } by percentile into percentGroup
+            //    orderby percentGroup.Key
+            //    select percentGroup;
+
+            //// Nested foreach required to iterate over groups and group items.
+            //foreach (var studentGroup in groupByPercentileQuery)
+            //{
+            //    Console.WriteLine($"Key: {studentGroup.Key * 10}");
+            //    foreach (var item in studentGroup)
+            //    {
+            //        Console.WriteLine($"\t{item.LastName}, {item.FirstName}");
+            //    }
+            //}
+
+
+
+
+            //var groupByHighAverageQuery =
+            // from student in students
+            //group new
+            //{
+            //  student.FirstName,
+            //  student.LastName
+            //} by student.ExamScores.Average() > 75 into studentGroup
+            //select studentGroup;
+
+            //foreach (var studentGroup in groupByHighAverageQuery)
+            //{
+            //    Console.WriteLine($"Key: {studentGroup.Key}");
+            //    foreach (var student in studentGroup)
+            //    {
+            //        Console.WriteLine($"\t{student.FirstName} {student.LastName}");
+            //    }
+            //}
+
+
+            var groupByCompoundKey =
+            from student in students
+            group student by new
+            {
+              FirstLetter = student.LastName[0],
+                 IsScoreOver85 = student.ExamScores[0] > 85
+            } into studentGroup
+            orderby studentGroup.Key.FirstLetter
+            select studentGroup;
+
+            foreach (var scoreGroup in groupByCompoundKey)
+            {
+                string s = scoreGroup.Key.IsScoreOver85 == true ? "more than 85" : "less than 85";
+                Console.WriteLine($"Name starts with {scoreGroup.Key.FirstLetter} who scored {s}");
+                foreach (var item in scoreGroup)
                 {
-                    Console.WriteLine($"{item.Name,-15}{item.Score}");
+                    Console.WriteLine($"\t{item.FirstName} {item.LastName}");
                 }
             }
 
-            QueryHighScores(2, 90);
-
-
-
-
-            // QueryMethod1 returns a query as its value.
-            IEnumerable<string> QueryMethod1(int[] ints) =>
-                from i in ints
-                where i > 4
-                select i.ToString();
-
-            // QueryMethod2 returns a query as the value of the out parameter returnQ
-            void QueryMethod2(int[] ints, out IEnumerable<string> returnQ) =>
-                returnQ =
-                    from i in ints
-                    where i < 4
-                    select i.ToString();
-
-            int[] nums = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-
-            // QueryMethod1 returns a query as the value of the method.
-            var myQuery1 = QueryMethod1(nums);
-
-            // Query myQuery1 is executed in the following foreach loop.
-            Console.WriteLine("Results of executing myQuery1:");
-          
-            foreach (var s in myQuery1)
-            {
-                Console.WriteLine(s);
-            }
-
            
-            Console.WriteLine("\nResults of executing myQuery1 directly:");
-          
-            foreach (var s in QueryMethod1(nums))
-            {
-                Console.WriteLine(s);
-            }
-
-            // QueryMethod2 returns a query as the value of its out parameter.
-            QueryMethod2(nums, out IEnumerable<string> myQuery2);
-
-            // Execute the returned query.
-            Console.WriteLine("\nResults of executing myQuery2:");
-            foreach (var s in myQuery2)
-            {
-                Console.WriteLine(s);
-            }
-
-           
-            myQuery1 =
-                from item in myQuery1
-                orderby item descending
-                select item;
-
-            // Execute the modified query.
-            Console.WriteLine("\nResults of executing modified myQuery1:");
-            foreach (var s in myQuery1)
-            {
-                Console.WriteLine(s);
-            }
 
 
 
-            Package.ToDictionaryEx1();
-            Package.ToLookupEx1();
-      
-   
+
+
+
+
+
+
         }
     }
 }
