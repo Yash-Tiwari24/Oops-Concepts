@@ -17,8 +17,8 @@ namespace Oops_Concepts
             //    where score > 80
             //    select score;
 
-           
-            
+
+
             //IEnumerable<int> highScoresQuery =
             //from score in scores
             //  where score > 80
@@ -77,7 +77,7 @@ namespace Oops_Concepts
             //orderby score descending // optional
             //select score; //must end with select or group
 
-          
+
 
 
             //List<int> numbers = new() { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
@@ -89,7 +89,7 @@ namespace Oops_Concepts
             //    where num < 3 || num > 7
             //    select num;
 
-         
+
             //IEnumerable<int> orderingQuery =
             //    from num in numbers
             //    where num < 3 || num > 7
@@ -114,13 +114,13 @@ namespace Oops_Concepts
 
             //// Query #4.
             //double average = numbers1.Count();
-           
 
-            
+
+
 
             //// Query #5.
             //IEnumerable<int> concatenationQuery = numbers1.Concat(numbers2);
-   
+
 
             //foreach (var item in concatenationQuery)
             //{
@@ -131,7 +131,7 @@ namespace Oops_Concepts
             //var squaredNumbers = numbers11.Select(x => x * x);
             //Console.WriteLine(string.Join(" ", squaredNumbers));
 
-            List<Student> students = Student.students;
+            // List<Student> students = Student.students;
 
             //void QueryHighScores(int exam, int score)
             //{
@@ -388,44 +388,234 @@ namespace Oops_Concepts
             //}
 
 
-            void FilterByYearType(bool oddYear)
-            {
-                IEnumerable<Student> studentQuery;
-                if (oddYear)
-                {
-                    studentQuery =
-                        from student in students
-                        where student.Year == GradeLevel.FirstYear || student.Year == GradeLevel.ThirdYear
-                        select student;
-                }
-                else
-                {
-                    studentQuery =
-                        from student in students
-                        where student.Year == GradeLevel.SecondYear || student.Year == GradeLevel.FourthYear
-                        select student;
-                }
-
-                string descr = oddYear ? "odd" : "even";
-                Console.WriteLine($"The following students are at an {descr} year level:");
-                foreach (Student name in studentQuery)
-                {
-                    Console.WriteLine($"{name.LastName}: {name.ID}");
-                }
-            }
-
-            FilterByYearType(true);
-
-           
-
-            FilterByYearType(false);
-
-          
 
 
 
 
 
+
+            //void FilterByYearType(bool oddYear)
+            //{
+            //    IEnumerable<Student> studentQuery;
+            //    if (oddYear)
+            //    {
+            //        studentQuery =
+            //            from student in students
+            //            where student.Year == GradeLevel.FirstYear || student.Year == GradeLevel.ThirdYear
+            //            select student;
+            //    }
+            //    else
+            //    {
+            //        studentQuery =
+            //            from student in students
+            //            where student.Year == GradeLevel.SecondYear || student.Year == GradeLevel.FourthYear
+            //            select student;
+            //    }
+
+            //    string descr = oddYear ? "odd" : "even";
+            //    Console.WriteLine($"The following students are at an {descr} year level:");
+            //    foreach (Student name in studentQuery)
+            //    {
+            //        Console.WriteLine($"{name.LastName}: {name.ID}");
+            //    }
+            //}
+
+            //FilterByYearType(true);
+
+
+
+            //FilterByYearType(false);
+
+
+
+            //Example - Simple key join
+
+            //Person magnus = new(FirstName: "Magnus", LastName: "Hedlund");
+            //Person terry = new("Terry", "Adams");
+            //Person charlotte = new("Charlotte", "Weiss");
+            //Person arlene = new("Arlene", "Huff");
+            //Person rui = new("Rui", "Raposo");
+
+            //List<Person> people = new() { magnus, terry, charlotte, arlene, rui };
+
+            //List<Pet> pets = new()
+            //{
+            //    new(Name: "Barley", Owner: terry),
+            //    new("Boots", terry),
+            //    new("Whiskers", charlotte),
+            //    new("Blue Moon", rui),
+            //    new("Daisy", magnus),
+            //};
+
+            //var query =
+            //    from person in people
+            //    join pet in pets on person equals pet.Owner
+            //    select new
+            //    {
+            //        OwnerName = person.FirstName,
+            //        PetName = pet.Name
+            //    };
+
+            //foreach (var ownerAndPet in query)
+            //{
+            //    Console.WriteLine($"\"{ownerAndPet.PetName}\" is owned by {ownerAndPet.OwnerName}");
+            //}
+
+
+
+
+
+            ////Example - Composite key join
+
+            //List<Employee> employees = new()
+            //{
+            //    new(FirstName: "Terry", LastName: "Adams", EmployeeID: 522459),
+            //    new("Charlotte", "Weiss", 204467),
+            //    new("Magnus", "Hedland", 866200),
+            //    new("Vernette", "Price", 437139)
+            //};
+
+            //List<Student> students = new()
+            //{
+            //    new(FirstName: "Vernette", LastName: "Price", StudentID: 9562),
+            //    new("Terry", "Earls", 9870),
+            //    new("Terry", "Adams", 9913)
+            //};
+
+            //// Join the two data sources based on a composite key consisting of first and last name,
+            //// to determine which employees are also students.
+            //var query =
+            //    from employee in employees
+            //    join student in students on new
+            //    {
+            //        employee.FirstName,
+            //        employee.LastName
+            //    } equals new
+            //    {
+            //        student.FirstName,
+            //        student.LastName
+            //    }
+            //    select employee.FirstName + " " + employee.LastName;
+
+            //Console.WriteLine("The following people are both employees and students:");
+            //foreach (string name in query)
+            //{
+            //    Console.WriteLine(name);
+            //}
+
+
+
+
+            ////Example - Multiple join
+            //Person magnus = new(FirstName: "Magnus", LastName: "Hedlund");
+            //Person terry = new("Terry", "Adams");
+            //Person charlotte = new("Charlotte", "Weiss");
+            //Person arlene = new("Arlene", "Huff");
+            //Person rui = new("Rui", "Raposo");
+            //Person phyllis = new("Phyllis", "Harris");
+
+            //List<Person> people = new() { magnus, terry, charlotte, arlene, rui, phyllis };
+
+            //List<Cat> cats = new()
+            //{
+            //    new(Name: "Barley", Owner: terry),
+            //    new("Boots", terry),
+            //    new("Whiskers", charlotte),
+            //    new("Blue Moon", rui),
+            //    new("Daisy", magnus),
+            //};
+
+            //List<Dog> dogs = new()
+            //{
+            //    new(Name: "Four Wheel Drive", Owner: phyllis),
+            //    new("Duke", magnus),
+            //    new("Denim", terry),
+            //    new("Wiley", charlotte),
+            //    new("Snoopy", rui),
+            //    new("Snickers", arlene),
+            //};
+
+
+            //var query =
+            //    from person in people
+            //    join cat in cats on person equals cat.Owner
+            //    join dog in dogs on new
+            //    {
+            //        Owner = person,
+            //        Letter = cat.Name.Substring(0, 1)
+            //    } equals new
+            //    {
+            //        dog.Owner,
+            //        Letter = dog.Name.Substring(0, 1)
+            //    }
+            //    select new
+            //    {
+            //        CatName = cat.Name,
+            //        DogName = dog.Name
+            //    };
+
+            //foreach (var obj in query)
+            //{
+            //    Console.WriteLine(
+            //        $"The cat \"{obj.CatName}\" shares a house, and the first letter of their name, with \"{obj.DogName}\"."
+            //    );
+            //}
+
+
+
+
+            ////Example - Inner join by using grouped join
+            //Person magnus = new(FirstName: "Magnus", LastName: "Hedlund");
+            //Person terry = new("Terry", "Adams");
+            //Person charlotte = new("Charlotte", "Weiss");
+            //Person arlene = new("Arlene", "Huff");
+
+            //List<Person> people = new() { magnus, terry, charlotte, arlene };
+
+            //List<Pet> pets = new()
+            //{
+            //    new(Name: "Barley", Owner: terry),
+            //    new("Boots", terry),
+            //    new("Whiskers", charlotte),
+            //    new("Blue Moon", terry),
+            //    new("Daisy", magnus),
+            //};
+
+            //var query1 =
+            //    from person in people
+            //    join pet in pets on person equals pet.Owner into gj
+            //    from subpet in gj
+            //    select new
+            //    {
+            //        OwnerName = person.FirstName,
+            //        PetName = subpet.Name
+            //    };
+
+            //Console.WriteLine("Inner join using GroupJoin():");
+            //foreach (var v in query1)
+            //{
+            //    Console.WriteLine($"{v.OwnerName} - {v.PetName}");
+            //}
+
+            //var query2 =
+            //    from person in people
+            //    join pet in pets on person equals pet.Owner
+            //    select new
+            //    {
+            //        OwnerName = person.FirstName,
+            //        PetName = pet.Name
+            //    };
+
+            //Console.WriteLine();
+            //Console.WriteLine("The equivalent operation using Join():");
+            //foreach (var v in query2)
+            //{
+            //    Console.WriteLine($"{v.OwnerName} - {v.PetName}");
+            //}
+
+
+
+            
 
         }
     }
