@@ -16,6 +16,6 @@ namespace Oops_Concepts
     record Cat(string Name, Person Owner) : Pet(Name, Owner);
     record Dog(string Name, Person Owner) : Pet(Name, Owner);
 
-    record Product(string Name, int CategoryID);
+    record Product(string PName, int CategoryID);
     record Category(string Name, int ID);
 }

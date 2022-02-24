@@ -10,7 +10,7 @@ namespace Oops_Concepts
         static void Main(string[] args)
         {
             //// Specify the data source.
-            //int[] scores = { 97, 92, 81, 60 };
+            int[] scores = { 97, 92, 81, 60 };
 
             //// Define the query expression.
             //IEnumerable<int> scoreQuery =
@@ -18,6 +18,19 @@ namespace Oops_Concepts
             //    where score > 80
             //    select score;
 
+
+
+
+
+
+
+            //IQueryable<int> MethodSyntax = scores.AsQueryable()
+            //                    .Where(std => std >50);
+
+            //foreach (var item in MethodSyntax)
+            //{
+            //    Console.WriteLine(item);
+            //}
 
 
             //IEnumerable<int> highScoresQuery =
@@ -110,13 +123,13 @@ namespace Oops_Concepts
             //}
 
 
-            //List<int> numbers1 = new() { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
-            //List<int> numbers2 = new() { 15, 14, 11, 13, 19, 18, 16, 17, 12, 10 };
+            List<int> numbers1 = new() { 5, 4, 1, 3, 9, 8};
+            List<int> numbers2 = new() { 15, 14, 11, 13, 19, 18, 16, 17, 12, 10 };
 
-            //// Query #4.
-            //double average = numbers1.Count();
+            // Query #4.
+            
 
-
+            Console.WriteLine(numbers1.Capacity);
 
 
             //// Query #5.
@@ -722,6 +735,8 @@ namespace Oops_Concepts
             //        PetName = subpet?.Name ?? string.Empty
             //    };
 
+
+
             //foreach (var v in query)
             //{
             //    Console.WriteLine($"{v.FirstName + ":",-15}{v.PetName}");
@@ -774,7 +789,7 @@ namespace Oops_Concepts
 
 
             ////Cross-join
-            List<Category> categories = new()
+            List < Category > categories = new()
             {
                 new(Name: "Beverages", ID: 001),
                 new("Condiments", 002),
@@ -783,7 +798,7 @@ namespace Oops_Concepts
 
             List<Product> products = new()
             {
-                new(Name: "Tea", CategoryID: 001),
+                new(PName: "Tea", CategoryID: 001),
                 new("Mustard", 002),
                 new("Pickles", 002),
                 new("Carrots", 003),
@@ -791,45 +806,131 @@ namespace Oops_Concepts
                 new("Peaches", 005),
                 new("Melons", 005),
                 new("Ice Cream", 007),
-                new("Mackerel", 012)
+                new("Mackerel", 010)
             };
 
-            //var crossJoinQuery =
-            //    from c in categories
-            //    from p in products
+            //var query =
+            //    from person in people
+            //    join pet in pets on person equals pet.Owner into gj
+            //    from subpet in gj.DefaultIfEmpty()
             //    select new
             //    {
-            //        c.ID,
-            //        p.Name
+            //        person.FirstName,
+            //        PetName = subpet?.Name ?? string.Empty
             //    };
 
-            //Console.WriteLine("Cross Join Query:");
-            //foreach (var v in crossJoinQuery)
+
+            //var testjoin = from cate in categories 
+            //               join prod in products on cate.ID equals prod.CategoryID into gj
+            //               from subprod in gj.DefaultIfEmpty()
+            //               select new
+            //               {
+            //                   cate.Name,PName=subprod?.PName?? string.Empty
+
+
+            //               };
+
+
+            ////example of right join
+            //var SrvRef = from p in products
+            //             join c in categories on p.CategoryID equals c.ID into r_join
+            //             from rEmpty in r_join.DefaultIfEmpty()
+            //            // where p.CategoryID ==s.svhHeadCnt == HeadId
+            //             select new
+            //             {
+            //                 p.PName,
+            //                 Category_Name = rEmpty == null ? null : rEmpty.Name
+            //             };
+
+
+            //var resultJoint = products.FulltExcludingJoin(          /// Source Collection  
+            //        categories,                        /// Inner Collection  
+            //        p => p.IdAddress,                                /// PK  
+            //        a => a.IdAddress,                                /// FK  
+            //        (p, a) => new { MyPerson = p, MyAddress = a })   /// Result Collection  
+            //        .Select(a => new
+            //        {
+            //            Name = (a.MyPerson != null ? a.MyPerson.Name : "Null-Value"),
+            //            Age = (a.MyPerson != null ? a.MyPerson.Age : -1),
+            //            PersonIdAddress = (a.MyPerson != null ? a.MyPerson.IdAddress : -1),
+            //            AddressIdAddress = (a.MyAddress != null ? a.MyAddress.IdAddress : -1),
+            //            Street = (a.MyAddress != null ? a.MyAddress.Street : "Null-Value")
+            //        });
+
+
+            //example of full join
+            //var SrvRef = from p in products
+            //             join c in categories on p.CategoryID equals c.ID into f_join
+            //             from fEmpty in f_join.DefaultIfEmpty() 
+            //             // where p.CategoryID ==s.svhHeadCnt == HeadId
+            //             select new
+            //             {
+            //                 p.PName,
+            //                 Product_Name = fEmpty == null ? null : fEmpty.,
+
+            //                    Category_Name = rEmpty == null ? null : rEmpty.Name
+
+
+            //             };
+
+            //var rightOuterJoin = (categories.GroupJoin(products, left => left.ID, right => right.CategoryID, (left, right) => new {
+            //    TableA = right,
+            //    TableB = left
+            //}).SelectMany(p => p.TableA.DefaultIfEmpty(), (x, y) => new {
+            //    TableA = y,
+            //    TableB = x.TableB
+            //}));
+
+
+
+            //foreach (var item in SrvRef)
             //{
-            //    Console.WriteLine($"{v.ID,-5}{v.Name}");
+            //    Console.WriteLine(item);
             //}
+                 
+            //var crossJoinQuery =
+            // from c in categories
+            // from p in products
+            // where c.ID == p.CategoryID
+            // select new
+            // {
+
+                             //     p.PName,
+                             //     c.Name
+                             // };
+
+                             //foreach (var item in crossJoinQuery)
+                             //{
+                             //    Console.WriteLine(item);
+                             //}
+
+                             //Console.WriteLine("Cross Join Query:");
+                             //foreach (var v in crossJoinQuery)
+                             //{
+                             //    Console.WriteLine($"{v.ID,-5}{v.Name}");
+                             //}
 
 
-            //Non-equijoin  
-            var nonEquijoinQuery =
-            from p in products
-            let catIds =
-            from c in categories
-            select c.ID
-            where catIds.Contains(p.CategoryID) == true
-            select new
-            {
-            Product = p.Name,
-            p.CategoryID
-            };
+                             //Non-equijoin  
+                             //var nonEquijoinQuery =
+                             //from p in products
+                             //let catIds =
+                             //from c in categories
+                             //select c.ID
+                             //where catIds.Contains(p.CategoryID) == true
+                             //select new
+                             //{
+                             //    Product = p.Name,
+                             //    p.CategoryID
+                             //};
 
-            Console.WriteLine("Non-equijoin query:");
-            foreach (var v in nonEquijoinQuery)
-            {
-                Console.WriteLine($"{v.CategoryID,-5}{v.Product}");
-            }
+                             //Console.WriteLine("Non-equijoin query:");
+                             //foreach (var v in nonEquijoinQuery)
+                             //{
+                             //    Console.WriteLine($"{v.CategoryID,-5}{v.Product}");
+                             //}
 
-            
+
 
         }
     }
