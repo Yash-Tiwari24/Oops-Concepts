@@ -29,6 +29,12 @@ namespace Oops_Concepts
 
 
 
+         public  
+              
+
+                
+
+
             Console.WriteLine("-------------------------------GiftCardAccount------------------------------------------");
             GiftCardAccount giftCard = new GiftCardAccount { Number = accountNumberSeed, Owner = "Nikhil", Balance = 0 };
             accountNumberSeed++;

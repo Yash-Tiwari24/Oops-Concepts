@@ -13,7 +13,6 @@ namespace Oops_Concepts.Opps_Concepts
     {
 
        
-    
 
        [Key]
        [Range(3245789856,9999999999)]
