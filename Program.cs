@@ -6,7 +6,12 @@ namespace Oops_Concepts
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Calculate dataClass = new Calculate();
+            int add2 = dataClass.Add(45, 34, 67);
+            int add1 = dataClass.Add(23, 34);
+
+            Console.WriteLine(add2);
+            Console.WriteLine(add1);
         }
     }
 }
