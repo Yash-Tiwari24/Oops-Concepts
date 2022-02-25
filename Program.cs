@@ -6,7 +6,11 @@ namespace Oops_Concepts
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            DemoEncap obj = new DemoEncap();
+            obj.Name = "Govinda";
+            obj.Age = 21;
+            Console.WriteLine("Name: " + obj.Name);
+            Console.WriteLine("Age: " + obj.Age);
         }
     }
 }
