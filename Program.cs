@@ -121,7 +121,7 @@ namespace Oops_Concepts
 
             string[] count1 = { "India", "USA", "UK", "Australia" };
             string[] count2 = { "India", "Canada", "UK", "China" };
-            
+
             //var result = count1.Union(count2);
 
             //var result1 = count1.Intersect(count2);
@@ -136,17 +136,109 @@ namespace Oops_Concepts
             //IEnumerable<string> result = countries.Distinct(StringComparer.OrdinalIgnoreCase);
             //foreach (var item in result)
             //{
-              
+
             //    Console.WriteLine(item);
             //}
 
-            var result = count1.Except(count2);
-            foreach (var item in result)
-            {
-                Console.WriteLine(item);
-            }
+            //var result = count1.Except(count2);
+
+            //var result2 = count1.Concat(count2);
+            //foreach (var item in result2)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            //IEnumerable<int> obj1 = Enumerable.Range(100, 10);
+
+            //IEnumerable<int> obj2 = Enumerable.Repeat(100, 10);
+
+
+            //foreach (var item in obj2)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+
+            //string[] fruits = { "apple", "mango", "orange", "passionfruit", "grape" };
+            //// Determine whether any string in the array is longer than "banana".
+            //string longestName =
+            //    fruits.AsQueryable().Aggregate(
+            //    "banana",
+            //    (longest, next) => next.Length > longest.Length ? next : longest,
+            //    fruit => fruit.ToUpper()
+            //    );
+            //Console.WriteLine(
+            //    "The fruit with the longest name is {0}.",
+            //    longestName);
+
+
+            //Pet[] pets = { new Pet { Name="Barley", Age=10 },
+            //       new Pet { Name="Boots", Age=4 },
+            //       new Pet { Name="Whiskers", Age=6 } };
+
+            //// Determine whether all pet names in the array start with 'B'.
+            //bool allStartWithB =
+            //    pets.AsQueryable().All(pet => pet.Name.StartsWith("B"));
+            //Console.WriteLine(
+            //    "{0} pet names start with 'B'.",
+            //    allStartWithB ? "All" : "Not all");
+
+
+            // List<Person> people = new List<Person>
+            // { new Person { LastName = "Haas",
+            //            Pets = new Pet[] { new Pet { Name="Barley", Age=10 },
+            //                               new Pet { Name="Boots", Age=14 },
+            //                               new Pet { Name="Whiskers", Age=6 }}},
+            // new Person { LastName = "Fakhouri",
+            //            Pets = new Pet[] { new Pet { Name = "Snowball", Age = 1}}},
+            // new Person { LastName = "Antebi",
+            //            Pets = new Pet[] { new Pet { Name = "Belle", Age = 8} }},
+            // new Person { LastName = "Philips",
+            //            Pets = new Pet[] { new Pet { Name = "Sweetie", Age = 2},
+            //                               new Pet { Name = "Rover", Age = 13}} }
+            // };
+
+            // Determine which people have pets that are all older than 5.
+            //IEnumerable<string> names = from person in people
+            //                            where person.Pets.AsQueryable().All(pet => pet.Age > 5)
+            //                            select person.LastName;
+
+            // foreach (string name in names)
+            //     Console.WriteLine(name);
+
+
+            // List<int> numbers = new List<int> { 1, 2 };
+            //// Determine if the list contains any elements.
+            // bool hasElements = numbers.AsQueryable().Any();
+            // Console.WriteLine("The list {0} empty.",hasElements ? "is not" : "is");
+
+            // Creating a list of integer
+            List<int> intSequence = new List<int> { 10, 20, 30, 40 };
+            // Trying to append 5 at the end of the intSequence
+            intSequence.Append(5);
+            //It doesn't work because the original list has not been changed
+            Console.WriteLine(string.Join(", ", intSequence));
+            // It works now because we are using a changed copy of the original sequence
+            Console.WriteLine(string.Join(", ", intSequence.Append(5)));
+            // Creating a new sequence explicitly
+            List<int> newintSequence = intSequence.Append(5).ToList();
+            // Printing the new sequence in the console
+            Console.WriteLine(string.Join(", ", newintSequence));
+
 
 
         }
     }
+
+    class Pet
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+    }
+    class Person
+    {
+        public string LastName { get; set; }
+        public Pet[] Pets { get; set; }
+    }
+    
 }
