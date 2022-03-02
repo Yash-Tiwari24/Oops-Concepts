@@ -9,20 +9,11 @@ namespace Oops_Concepts
     {
         static void Main(string[] args)
         {
-            // Create a new dictionary of strings, with int keys.
-            Dictionary<int, string> img = new Dictionary<int, string>();
+            //// Specify the data source.
+            //int[] scores = { 97, 92, 81, 60 };
 
-            img.Add(1, "png");
-            img.Add(2, "jpg");
-            img.Add(3, "jpeg");
-            img.Add(4, "gif");
-
-            Console.WriteLine("Using Dictionary");
-            foreach (KeyValuePair<int, string> kvp in img)
-            {
-                Console.WriteLine("Image Id ={0} and Type={1}", kvp.Key, kvp.Value);
-            }
-
+         
+            
 
             List<string> part = new List<string>();
             //the Clear method is used to remove all items from the list, and the Capacity and Count properties are displayed.
@@ -39,6 +30,7 @@ namespace Oops_Concepts
             {
                 Console.WriteLine(item);
             }
+
 
 
             Queue<string> numbers = new Queue<string>();
