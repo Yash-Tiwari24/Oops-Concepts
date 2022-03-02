@@ -6,4 +6,8 @@
     <RootNamespace>Oops_Concepts</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Opps Concepts\" />
+  </ItemGroup>
+
 </Project>
