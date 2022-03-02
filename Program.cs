@@ -81,6 +81,8 @@ namespace Oops_Concepts
                 Console.WriteLine(ex.Message);
             }
 
+            Console.WriteLine("\t");
+
             //Unhandled Exception with try-finally
             int i = 123;
             string s = "Some string";
@@ -89,7 +91,8 @@ namespace Oops_Concepts
             try
             {
                 // Invalid conversion; obj contains a string, not a numeric type.
-                i = (int)obj;
+                
+               i = (int)obj;
 
                 // The following statement is not run.
                 Console.WriteLine("WriteLine at the end of the try block.");
