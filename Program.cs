@@ -1,4 +1,4 @@
-﻿using Oops_Concepts.Opps_Concepts;
+using Oops_Concepts.Opps_Concepts;
 using Oops_Concepts.Repository;
 using Oops_Concepts.Services;
 using System;
@@ -70,7 +70,13 @@ namespace Oops_Concepts
 
             Square s1 = new Square(10);
             Console.WriteLine(s1.Area());
-
+            
+            //Encapsulation
+            DemoEncap obj = new DemoEncap();
+            obj.Name = "Govinda";
+            obj.Age = 21;
+            Console.WriteLine("Name: " + obj.Name);
+            Console.WriteLine("Age: " + obj.Age);
         }
     }
 }
