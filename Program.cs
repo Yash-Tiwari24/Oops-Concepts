@@ -23,7 +23,7 @@ namespace Oops_Concepts
             Console.WriteLine("Particular Date Of Task Count \t" + count);
 
 
-            Console.WriteLine("\t");
+            //Console.WriteLine("\t");
 
 
             //function which will return list of task for particular status
@@ -97,25 +97,31 @@ namespace Oops_Concepts
 
             Console.WriteLine("\t");
 
+            Console.WriteLine("Task By Only Name");
+            var onlytaskname = program.TaskByOnlyName(tasks);
+            foreach (var item in onlytaskname)
+            {
+                Console.Write(item.Taskid);
+
+
+                Console.WriteLine();
+            }
+
+            Console.WriteLine("\t");
+
             Console.WriteLine("Unique Task Name");
             var taskbyuniquename = program.TaskByUniqueName(tasks);
             foreach (var item in taskbyuniquename)
             {
-
-                Console.WriteLine(item);
-
-            }
-
 
         }
 
         //function which will return number of task assigned to a user on particular day 
         public int ParticularDateCount(DateTime date,List<Task> tasks)
         {
+            var task = Task.GetProducts();
 
-
-
-            return tasks.Count(task => task.Start_Date.Equals(date));
+            return task.Where(task => task.Start_Date.Equals(date)).Count();
         }
 
 
@@ -129,32 +135,34 @@ namespace Oops_Concepts
         //create function which will search task by its name
         public IEnumerable<Task> TaskByName(string name, List<Task> tasks)
         {
-           
-            return tasks.Where(task => task.TaskName.Equals(name));
+            var task = Task.GetProducts();
+            return task.Where(task => task.TaskName.Equals(name)).Select(task => task);
         }
 
 
         //function which will return task base on task id
         public IEnumerable<Task> TaskById(int id, List<Task> tasks)
         {
-           
-            return tasks.Where(task => task.Taskid.Equals(id));
+            var task = Task.GetProducts();
+            return task.Where(task => task.Taskid.Equals(id)).Select(task => task);
 
         }
 
 
 
         //function which will return task list for particular date range
-        public IEnumerable<Task> TaskByDateRange(DateTime startdate,DateTime enddate, List<Task> tasks)
+        public static IEnumerable<Task> TaskByDateRange(DateTime startdate,DateTime enddate)
         {
-            return tasks.Where(t => t.Start_Date >= startdate && t.Start_Date <= enddate);
-
-           
+           var task = Task.GetProducts();
+            return from t1 in task
+                   where startdate <= t1.Start_Date
+                   where enddate >= t1.Start_Date
+                   select t1;
         }
 
         public IEnumerable<Task> TaskByOnlyName(List<Task> tasks)
         {
-            return tasks.Where(t =>!string.IsNullOrEmpty(t.TaskName)) .Select(t => t);
+            return tasks.Where(t => !t.TaskName.Equals("")) .Select(t => t);
 
           
         }
@@ -162,7 +170,7 @@ namespace Oops_Concepts
         public int TaskByAssignNameCount(string assignname, List<Task> tasks)
         {
 
-           return tasks.Count(task => task.AssignTo.Equals(assignname));
+           return tasks.Where(task => task.AssignTo.Equals(assignname)).Count();
             
         }
 
