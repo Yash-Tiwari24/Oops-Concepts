@@ -8,7 +8,15 @@ namespace Oops_Concepts
 {
     public class CurrentAddress
     {
-       
+        private IStudentQueue _studentQueue;
+        private static IStudentQueue s_studentQueue;
+
+        [ThreadStatic]
+        private static TimeSpan t_timeSpan;
+
+        public void SomeMethod<T>(int someNumber, bool isValid)
+        {
+        }
 
     }
 
