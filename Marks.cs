@@ -9,25 +9,45 @@ namespace Oops_Concepts
     class Marks
     {
         public int RollNo { get; set; }
-        public int Math { get; set; }
-        public int Enq { get; set; }
-        public int Phy { get; set; }
-        public int Chem { get; set; }
-        public int Bio { get; set; }
+        public string Class { get; set; }
+        public string Subject { get; set; }
+        public int Mark { get; set; }
 
-        List<Marks> marks = new List<Marks>()
+
+       static List<Marks> marks = new List<Marks>()
        {
-           new Marks{RollNo=1,Math=62,Enq=76,Phy=65,Chem=76,Bio=81},
-           new Marks{RollNo=2,Math=62,Enq=76,Phy=65,Chem=76,Bio=81},
-           new Marks{RollNo=3,Math=62,Enq=76,Phy=65,Chem=76,Bio=81},
-           new Marks{RollNo=4,Math=62,Enq=76,Phy=65,Chem=76,Bio=81},
-           new Marks{RollNo=5,Math=62,Enq=76,Phy=65,Chem=76,Bio=81},
-           new Marks{RollNo=6,Math=62,Enq=76,Phy=65,Chem=76,Bio=81},
-           new Marks{RollNo=7,Math=62,Enq=76,Phy=65,Chem=76,Bio=81},
-           new Marks{RollNo=8,Math=62,Enq=76,Phy=65,Chem=76,Bio=81}
-
+           new Marks{RollNo=1,Class="1A",Subject="Math",Mark=80},
+           new Marks{RollNo=2,Class="1A",Subject="Math",Mark=10},
+           new Marks{RollNo=3,Class="1A",Subject="Math",Mark=15},
+           new Marks{RollNo=4,Class="1A",Subject="Math",Mark=17},
+           new Marks{RollNo=5,Class="1A",Subject="Math",Mark=21},
+           new Marks{RollNo=1,Class="1A",Subject="Enq",Mark=80},
+           new Marks{RollNo=2,Class="1A",Subject="Enq",Mark=0},
+           new Marks{RollNo=3,Class="1A",Subject="Enq",Mark=54},
+           new Marks{RollNo=4,Class="1A",Subject="Enq",Mark=38},
+           new Marks{RollNo=5,Class="1A",Subject="Enq",Mark=65},
+           new Marks{RollNo=1,Class="1A",Subject="Phy",Mark=64},
+           new Marks{RollNo=2,Class="1A",Subject="Phy",Mark=45},
+           new Marks{RollNo=3,Class="1A",Subject="Phy",Mark=89},
+           new Marks{RollNo=4,Class="1A",Subject="Phy",Mark=44},
+           new Marks{RollNo=5,Class="1A",Subject="Phy",Mark=49},
+           new Marks{RollNo=1,Class="1A",Subject="Chem",Mark=62},
+           new Marks{RollNo=2,Class="1A",Subject="Chem",Mark=71},
+           new Marks{RollNo=3,Class="1A",Subject="Chem",Mark=90},
+           new Marks{RollNo=4,Class="1A",Subject="Chem",Mark=54},
+           new Marks{RollNo=5,Class="1A",Subject="Chem",Mark=41},
+           new Marks{RollNo=1,Class="1A",Subject="Bio",Mark=54},
+           new Marks{RollNo=2,Class="1A",Subject="Bio",Mark=35},
+           new Marks{RollNo=3,Class="1A",Subject="Bio",Mark=90},
+           new Marks{RollNo=4,Class="1A",Subject="Bio",Mark=91},
+           new Marks{RollNo=5,Class="1A",Subject="Bio",Mark=62}
 
        };
+
+        public List<Marks> GetMark()
+        {
+            return marks;
+        }
 
 
 
