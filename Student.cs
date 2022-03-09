@@ -15,7 +15,7 @@ namespace Oops_Concepts
         public string Class { get; set; }
         public string Gender { get; set; }
 
-        List<Student> students = new List<Student>()
+       static List<Student> students = new List<Student>()
            {
                new Student{RollNo=1,FirstName="Amit",LastName="Sharma",Dob=Convert.ToDateTime("22-03-2002"),Class="1st",Gender="Male" },
                new Student{RollNo=2,FirstName="Nidhi",LastName="Sharma",Dob=Convert.ToDateTime("22-03-2002"),Class="2nd",Gender="Female" },
@@ -33,6 +33,9 @@ namespace Oops_Concepts
            };
 
 
-
+        public List<Student> GetStudents()
+        {
+            return students;
+        }
     }
 }

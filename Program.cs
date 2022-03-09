@@ -9,8 +9,8 @@ namespace Oops_Concepts
         static void Main(string[] args)
         {
             Marks mark = new Marks();
-            
-            List<Student> students = new List<Student>();
+            Student student = new Student();
+            List<Student> students = student.GetStudents();
             List<Marks> marks = mark.GetMark();
 
 
@@ -34,11 +34,7 @@ namespace Oops_Concepts
             p => p.RollNo,
            (key, g) => new { RollNo = key, TotalMarks = g.Sum(m=>m.Mark),TotalSubject=g.Count() });
 
-            foreach (var item in TotalMarkResult)
-            {
-                Console.WriteLine(item);
-            }
-
+           
 
             var query = students.Join(
                 TotalMarkResult,
@@ -47,6 +43,7 @@ namespace Oops_Concepts
                 (stud, tm) => new
                 {
                     RollNumber = stud.RollNo,
+                    StudentName=stud.FirstName+" "+stud.LastName,
                     Average = tm.Average,
                     Percentage = tm.Percentage,
                     Grade=tm.Grade
